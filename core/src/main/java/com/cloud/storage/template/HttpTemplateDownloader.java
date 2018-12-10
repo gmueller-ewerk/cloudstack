@@ -207,6 +207,7 @@ public class HttpTemplateDownloader extends ManagedContextRunnable implements Te
                 s_logger.info("Starting download from " + downloadUrl + " to " + toFile + " remoteSize=" + remoteSize + " , max size=" + maxTemplateSizeInBytes);
 
                 if (copyBytes(file, in, out)) return 0;
+                s_logger.info("Finishing download from " + downloadUrl + " to " + toFile + " remoteSize=" + remoteSize + " , max size=" + maxTemplateSizeInBytes);
 
                 Date finish = new Date();
                 checkDowloadCompletion();
@@ -236,28 +237,39 @@ public class HttpTemplateDownloader extends ManagedContextRunnable implements Te
         byte[] block = new byte[CHUNK_SIZE];
         long offset = 0;
         boolean done = false;
+        s_logger.info("Instanciate VerifyFormat");
         VerifyFormat verifyFormat = new VerifyFormat(file);
+        s_logger.info("Readable bytes from input stream without blocking " + in.available());
         status = Status.IN_PROGRESS;
         while (!done && status != Status.ABORTED && offset <= remoteSize) {
             if ((bytes = in.read(block, 0, CHUNK_SIZE)) > -1) {
+                s_logger.info("Starting write blocks " + bytes + out + offset + verifyFormat.isVerifiedFormat());
                 offset = writeBlock(bytes, out, block, offset);
+                s_logger.info("Finishing write blocks " + bytes + out + offset + verifyFormat.isVerifiedFormat());
                 if (!verifyFormat.isVerifiedFormat() && (offset >= 1048576 || offset >= remoteSize)) { //let's check format after we get 1MB or full file
                     verifyFormat.invoke();
+                    s_logger.info("Check format validity " + verifyFormat.isInvalid());
                     if (verifyFormat.isInvalid()) return true;
                 }
             } else {
+                s_logger.info("Finishing file read " + in.available());
                 done = true;
             }
         }
+        s_logger.info("Finishing copyBytes method");
         out.getFD().sync();
         return false;
     }
 
     private long writeBlock(int bytes, RandomAccessFile out, byte[] block, long offset) throws IOException {
+        s_logger.info("Starting write blocks " + totalBytes + bytes);
         out.write(block, 0, bytes);
+        s_logger.info("Finishing write blocks " + totalBytes + bytes);
         offset += bytes;
         out.seek(offset);
+        s_logger.info("Finishing seek " + totalBytes + bytes + offset);
         totalBytes += bytes;
+        s_logger.info("Current written bytes " + totalBytes);
         return offset;
     }
 
