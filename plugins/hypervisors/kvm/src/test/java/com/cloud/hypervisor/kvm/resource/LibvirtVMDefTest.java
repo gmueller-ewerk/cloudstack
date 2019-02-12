@@ -84,7 +84,7 @@ public class LibvirtVMDefTest extends TestCase {
                 "<interface type='" + LibvirtVMDef.InterfaceDef.GuestNetType.BRIDGE + "'>\n"
                         + "<source bridge='targetDeviceName'/>\n"
                         + "<target dev='vnet11'/>\n"
-                    + "<mtu size='1500'/>\n"
+                        + "<mtu size='1500'/>\n"
                         + "<mac address='00:11:22:aa:bb:dd'/>\n"
                         + "<model type='virtio'/>\n"
                         + "<link state='down'/>\n"

@@ -32,7 +32,6 @@ import com.cloud.hypervisor.kvm.resource.LibvirtComputingResource;
 import com.cloud.network.Networks;
 import com.cloud.utils.ExecutionResult;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.libvirt.Connect;
 import org.libvirt.Domain;
@@ -236,7 +235,6 @@ public class LibvirtNetworkElementCommandWrapperTest {
     }
 
     @Test
-    @Ignore
     public void testPrepareIpAssocVpcCommand() throws LibvirtException {
         IpAddressTO ip = new IpAddressTO(1, "171.31.1.3",
                 true, false, false,
@@ -258,7 +256,6 @@ public class LibvirtNetworkElementCommandWrapperTest {
     }
 
     @Test
-    @Ignore
     public void testVpcPrivateGateway() throws LibvirtException {
         IpAddressTO ip = new IpAddressTO(1, "171.31.1.3",
                                          true, false, false,

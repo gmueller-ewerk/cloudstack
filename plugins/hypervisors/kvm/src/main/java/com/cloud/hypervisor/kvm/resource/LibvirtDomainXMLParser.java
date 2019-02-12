@@ -41,7 +41,6 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -162,8 +161,12 @@ public class LibvirtDomainXMLParser {
                 String dev = getAttrValue("target", "dev", nic);
                 String model = getAttrValue("model", "type", nic);
                 String slot = StringUtils.removeStart(getAttrValue("address", "slot", nic), "0x");
-                int mtu = Integer.valueOf(
-                    Objects.requireNonNull(getAttrValue("mtu", "size", nic)));
+
+                String mtuAttrValue = getAttrValue("mtu", "size", nic);
+                int mtu = 1500;
+                if (mtuAttrValue != null) {
+                    mtu = Integer.parseInt(mtuAttrValue);
+                }
 
                 InterfaceDef def = new InterfaceDef();
                 NodeList bandwidth = nic.getElementsByTagName("bandwidth");
@@ -175,6 +178,7 @@ public class LibvirtDomainXMLParser {
                         networkRateKBps = inbound;
                     }
                 }
+
                 if (type.equalsIgnoreCase("network")) {
                     String network = getAttrValue("source", "network", nic);
                     def.defPrivateNet(network, dev, mac, NicModel.valueOf(model.toUpperCase()), networkRateKBps, mtu);

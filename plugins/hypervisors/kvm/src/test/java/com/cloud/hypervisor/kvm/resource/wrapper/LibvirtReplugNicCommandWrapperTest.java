@@ -36,7 +36,6 @@ import com.cloud.network.Networks;
 import com.cloud.utils.script.Script;
 import com.cloud.vm.VirtualMachine;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.libvirt.Connect;
@@ -224,7 +223,6 @@ public class LibvirtReplugNicCommandWrapperTest {
     }
 
     @Test
-    @Ignore
     public void testReplugNic() throws LibvirtException {
 
         final String expectedDetachXml =
@@ -267,6 +265,7 @@ public class LibvirtReplugNicCommandWrapperTest {
         nic.setName("alubr0");
         nic.setBroadcastType(Networks.BroadcastDomainType.Vsp);
         nic.setMac("02:00:7c:98:00:02");
+        nic.setMtu(1500);
         final ReplugNicCommand command = new ReplugNicCommand(nic, "i-85-285-VM", VirtualMachine.Type.User);
         final Answer result = wrapper.execute(command, res);
 
