@@ -1600,6 +1600,8 @@ public class NetworkOrchestrator extends ManagerBase implements NetworkOrchestra
             nic.setMacAddress(profile.getMacAddress());
             nic.setIsolationUri(profile.getIsolationUri());
             nic.setBroadcastUri(profile.getBroadCastUri());
+            nic.setMtu(profile.getMtu());
+            s_logger.info("NetworkOrchestrator prepareNic" + profile.getMtu());
             nic.setReserver(guru.getName());
             nic.setState(Nic.State.Reserved);
             nic.setIPv4Netmask(profile.getIPv4Netmask());

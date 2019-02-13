@@ -967,6 +967,7 @@ public class LibvirtVMDef {
             _model = model;
             _networkRateKBps = networkRateKBps;
             _mtu = mtu;
+            s_logger.info("defBridgeNet " + mtu);
         }
 
         public void defDpdkNet(String dpdkSourcePath, String dpdkPort, String macAddress, NicModel model, Integer networkRateKBps, String extra, int mtu) {
@@ -978,6 +979,7 @@ public class LibvirtVMDef {
             _networkRateKBps = networkRateKBps;
             _dpdkExtraLines = extra;
             _mtu = mtu;
+            s_logger.info("defDpdkNet " + mtu);
         }
 
         public void defDirectNet(String sourceName, String targetName, String macAddr, NicModel model, String sourceMode, int mtu) {
@@ -993,6 +995,7 @@ public class LibvirtVMDef {
             _model = model;
             _networkRateKBps = networkRateKBps;
             _mtu = mtu;
+            s_logger.info("defDirectNet " + mtu);
         }
 
         public void defPrivateNet(String networkName, String targetName, String macAddr, NicModel model, int mtu) {
@@ -1007,6 +1010,7 @@ public class LibvirtVMDef {
             _model = model;
             _networkRateKBps = networkRateKBps;
             _mtu = mtu;
+            s_logger.info("defPrivateNet " + mtu);
         }
 
         public void defEthernet(String targetName, String macAddr, NicModel model, String scriptPath, int mtu) {
@@ -1022,6 +1026,7 @@ public class LibvirtVMDef {
             _scriptPath = scriptPath;
             _networkRateKBps = networkRateKBps;
             _mtu = mtu;
+            s_logger.info("defEthernet " + mtu);
         }
 
         public void defEthernet(String targetName, String macAddr, NicModel model, int mtu) {
@@ -1131,6 +1136,8 @@ public class LibvirtVMDef {
             if (_networkName != null) {
                 netBuilder.append("<target dev='" + _networkName + "'/>\n");
             }
+
+            s_logger.info("LibvirtVMDef toString " + _mtu);
             if (_mtu > 0 && _mtu < 9000) {
                 netBuilder.append("<mtu size='" + _mtu + "'/>\n");
             }

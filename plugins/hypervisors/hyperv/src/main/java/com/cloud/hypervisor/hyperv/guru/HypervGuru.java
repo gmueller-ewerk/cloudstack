@@ -34,6 +34,7 @@ import com.cloud.utils.exception.CloudRuntimeException;
 import com.cloud.vm.NicProfile;
 import com.cloud.vm.VirtualMachine;
 import com.cloud.vm.VirtualMachineProfile;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,6 +48,8 @@ import javax.inject.Inject;
  * Implementation of Hypervisor guru for Hyper-V.
  **/
 public class HypervGuru extends HypervisorGuruBase implements HypervisorGuru {
+
+    private static final Logger s_logger = Logger.getLogger(HypervGuru.class);
 
     @Inject
     private GuestOSDao _guestOsDao;
@@ -135,7 +138,8 @@ public class HypervGuru extends HypervisorGuruBase implements HypervisorGuru {
                         nicTo.setGateway(network.getGateway());
                     }
                     nicTo.setDefaultNic(false);
-                    nicTo.setMtu(1500);
+                    s_logger.info("HypervGuru implement" + profile.getMtu());
+                    nicTo.setMtu(profile.getMtu());
                     nicTo.setBroadcastUri(profile.getBroadCastUri());
                     nicTo.setIsolationuri(profile.getIsolationUri());
 

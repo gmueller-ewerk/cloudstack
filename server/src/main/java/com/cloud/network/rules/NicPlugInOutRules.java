@@ -17,15 +17,6 @@
 
 package com.cloud.network.rules;
 
-import java.net.URI;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.apache.cloudstack.network.topology.NetworkTopologyVisitor;
-import org.apache.log4j.Logger;
-
 import com.cloud.agent.api.Command;
 import com.cloud.agent.api.NetworkUsageCommand;
 import com.cloud.agent.manager.Commands;
@@ -50,6 +41,14 @@ import com.cloud.vm.NicProfile;
 import com.cloud.vm.NicVO;
 import com.cloud.vm.VirtualMachineManager;
 import com.cloud.vm.dao.NicDao;
+import org.apache.cloudstack.network.topology.NetworkTopologyVisitor;
+import org.apache.log4j.Logger;
+
+import java.net.URI;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class NicPlugInOutRules extends RuleApplier {
 
@@ -107,6 +106,7 @@ public class NicPlugInOutRules extends RuleApplier {
             defaultNic.setBroadcastType(BroadcastDomainType.Vlan);
             defaultNic.setBroadcastUri(BroadcastDomainType.Vlan.toUri(ip.getVlanTag()));
             defaultNic.setIsolationUri(IsolationType.Vlan.toUri(ip.getVlanTag()));
+            s_logger.info("NiCPlugInOutRules accept" + defaultNic.getMtu());
 
             NicProfile publicNic = null;
             Network publicNtwk = null;

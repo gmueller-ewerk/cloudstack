@@ -17,11 +17,14 @@
 package com.cloud.agent.api.to;
 
 import com.cloud.offering.NetworkOffering;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Map;
 
 public class NicTO extends NetworkTO {
+    private static final Logger s_logger = Logger.getLogger(NicTO.class);
+
     int deviceId;
     Integer networkRateMbps;
     Integer networkRateMulticastMbps;
@@ -74,10 +77,12 @@ public class NicTO extends NetworkTO {
     }
 
     public void setMtu(int mtu) {
+        s_logger.info("NicTO setMtu" + mtu);
         this.mtu = mtu;
     }
 
     public int getMtu() {
+        s_logger.info("NicTO getMtu" + mtu);
         return mtu;
     }
 
