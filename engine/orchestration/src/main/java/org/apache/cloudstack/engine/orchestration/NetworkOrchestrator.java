@@ -882,6 +882,8 @@ public class NetworkOrchestrator extends ManagerBase implements NetworkOrchestra
         }
 
         vo.setDefaultNic(profile.isDefaultNic());
+        vo.setMtu(profile.getMtu());
+        s_logger.info("applyProfileToNic " + profile.getMtu() + profile);
 
         vo.setIPv4Address(profile.getIPv4Address());
         vo.setAddressFormat(profile.getFormat());
@@ -920,6 +922,8 @@ public class NetworkOrchestrator extends ManagerBase implements NetworkOrchestra
         if (profile.getReservationStrategy() != null) {
             vo.setReservationStrategy(profile.getReservationStrategy());
         }
+        vo.setMtu(profile.getMtu());
+        s_logger.info("applyProfileToNicForRelease" + profile.getMtu());
         vo.setBroadcastUri(profile.getBroadCastUri());
         vo.setIsolationUri(profile.getIsolationUri());
         vo.setIPv4Netmask(profile.getIPv4Netmask());

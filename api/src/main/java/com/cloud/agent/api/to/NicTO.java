@@ -77,12 +77,12 @@ public class NicTO extends NetworkTO {
     }
 
     public void setMtu(int mtu) {
-        s_logger.info("NicTO setMtu" + mtu);
+        s_logger.info("NicTO setMtu " + mtu);
         this.mtu = mtu;
     }
 
     public int getMtu() {
-        s_logger.info("NicTO getMtu" + mtu);
+        s_logger.info("NicTO getMtu " + mtu);
         return mtu;
     }
 
@@ -98,7 +98,7 @@ public class NicTO extends NetworkTO {
 
     @Override
     public String toString() {
-        return new StringBuilder("[Nic:").append(type).append("-").append(ip).append("-").append(broadcastUri).append("]").toString();
+        return new StringBuilder("[Nic:").append(type).append("-").append(ip).append("-").append(broadcastUri).append("] ").append(mtu).toString();
     }
 
     public void setNicSecIps(List<String> secIps) {

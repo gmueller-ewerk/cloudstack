@@ -23,12 +23,14 @@ import com.cloud.network.Networks.Mode;
 import com.cloud.network.Networks.TrafficType;
 import com.cloud.vm.Nic.ReservationStrategy;
 import org.apache.cloudstack.api.InternalIdentity;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.net.URI;
 
 public class NicProfile implements InternalIdentity, Serializable {
     private static final long serialVersionUID = 4997005771736090304L;
+  static final Logger s_logger = Logger.getLogger(NicProfile.class);
 
     long id;
     long networkId;
@@ -97,6 +99,7 @@ public class NicProfile implements InternalIdentity, Serializable {
         deviceId = nic.getDeviceId();
         defaultNic = nic.isDefaultNic();
         mtu = nic.getMtu();
+        s_logger.info("NicProfile" + nic + nic.getMtu());
         this.broadcastUri = broadcastUri;
         this.isolationUri = isolationUri;
 
@@ -432,6 +435,8 @@ public class NicProfile implements InternalIdentity, Serializable {
                 .append(iPv4Address)
                 .append("-")
                 .append(broadcastUri)
+                .append("-")
+                .append(mtu)
                 .toString();
     }
 }

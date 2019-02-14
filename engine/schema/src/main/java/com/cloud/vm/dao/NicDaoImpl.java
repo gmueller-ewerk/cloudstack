@@ -16,14 +16,6 @@
 // under the License.
 package com.cloud.vm.dao;
 
-import java.net.URI;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
-import org.springframework.stereotype.Component;
-
 import com.cloud.utils.db.Filter;
 import com.cloud.utils.db.GenericDaoBase;
 import com.cloud.utils.db.GenericSearchBuilder;
@@ -37,9 +29,20 @@ import com.cloud.vm.Nic.State;
 import com.cloud.vm.NicVO;
 import com.cloud.vm.VMInstanceVO;
 import com.cloud.vm.VirtualMachine;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
+import java.net.URI;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 @Component
 public class NicDaoImpl extends GenericDaoBase<NicVO, Long> implements NicDao {
+
+    static final Logger s_logger = Logger.getLogger(NicDaoImpl.class);
+
     private SearchBuilder<NicVO> AllFieldsSearch;
     private GenericSearchBuilder<NicVO, String> IpSearch;
     private SearchBuilder<NicVO> NonReleasedSearch;
@@ -115,6 +118,7 @@ public class NicDaoImpl extends GenericDaoBase<NicVO, Long> implements NicDao {
     public List<NicVO> listByVmId(long instanceId) {
         SearchCriteria<NicVO> sc = AllFieldsSearch.create();
         sc.setParameters("instance", instanceId);
+        s_logger.info("NicDaoImpl" + listBy(sc));
         return listBy(sc);
     }
 
