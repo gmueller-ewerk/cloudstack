@@ -19,6 +19,7 @@ package org.apache.cloudstack.storage.allocator;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -178,6 +179,8 @@ public abstract class AbstractStoragePoolAllocator extends AdapterBase implement
 
         if (s_logger.isDebugEnabled()) {
             s_logger.debug("Checking if storage pool is suitable, name: " + pool.getName() + " ,poolId: " + pool.getId());
+            Date start = new Date();
+            s_logger.debug("Starting filter in AbstractStoragePoolAllocator at " + start);
         }
         if (avoid.shouldAvoid(pool)) {
             if (s_logger.isDebugEnabled()) {
@@ -214,7 +217,10 @@ public abstract class AbstractStoragePoolAllocator extends AdapterBase implement
         Volume volume = volumeDao.findById(dskCh.getVolumeId());
         List<Volume> requestVolumes = new ArrayList<>();
         requestVolumes.add(volume);
-        return storageMgr.storagePoolHasEnoughIops(requestVolumes, pool) && storageMgr.storagePoolHasEnoughSpace(requestVolumes, pool, plan.getClusterId());
+        boolean result = storageMgr.storagePoolHasEnoughIops(requestVolumes, pool) && storageMgr.storagePoolHasEnoughSpace(requestVolumes, pool, plan.getClusterId());
+        Date end = new Date();
+        s_logger.debug("Finishing filter in AbstractStoragePoolAllocator at " + end);
+        return result;
     }
 
     /*
