@@ -885,6 +885,15 @@ public class VirtualMachineManagerImpl extends ManagerBase implements VirtualMac
             }
         } else {
             final Outcome<VirtualMachine> outcome = startVmThroughJobQueue(vmUuid, params, planToDeploy, planner);
+
+            try {
+                final VirtualMachine vm = outcome.get();
+            } catch (final InterruptedException e) {
+                throw new RuntimeException("Operation is interrupted", e);
+            } catch (final java.util.concurrent.ExecutionException e) {
+                throw new RuntimeException("Execution excetion", e);
+            }
+
             final Object jobResult = _jobMgr.unmarshallResultObject(outcome.getJob());
             if (jobResult != null) {
                 if (jobResult instanceof ConcurrentOperationException) {
