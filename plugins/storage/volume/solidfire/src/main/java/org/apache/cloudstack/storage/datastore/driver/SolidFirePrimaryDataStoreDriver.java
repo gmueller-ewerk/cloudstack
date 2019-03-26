@@ -38,6 +38,7 @@ import com.cloud.hypervisor.Hypervisor;
 import com.cloud.storage.DataStoreRole;
 import com.cloud.storage.ResizeVolumePayload;
 import com.cloud.storage.Snapshot.State;
+import com.cloud.storage.Snapshot;
 import com.cloud.storage.SnapshotVO;
 import com.cloud.storage.StoragePool;
 import com.cloud.storage.VMTemplateStoragePoolVO;
@@ -83,6 +84,7 @@ import org.apache.cloudstack.storage.datastore.util.SolidFireUtil;
 import org.apache.cloudstack.storage.to.SnapshotObjectTO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import sun.tools.jconsole.ProxyClient;
 
 public class SolidFirePrimaryDataStoreDriver implements PrimaryDataStoreDriver {
     private static final Logger LOGGER = Logger.getLogger(SolidFirePrimaryDataStoreDriver.class);
@@ -400,7 +402,7 @@ public class SolidFirePrimaryDataStoreDriver implements PrimaryDataStoreDriver {
             }
         }
 
-        List<SnapshotVO> lstSnapshots = snapshotDao.listAll();
+        List<SnapshotVO> lstSnapshots = snapshotDao.listAllByStatus(Snapshot.State.BackedUp);
 
         if (lstSnapshots != null) {
             for (SnapshotVO snapshot : lstSnapshots) {
