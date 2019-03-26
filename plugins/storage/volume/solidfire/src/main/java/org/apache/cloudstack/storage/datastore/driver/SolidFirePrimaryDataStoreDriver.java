@@ -84,7 +84,6 @@ import org.apache.cloudstack.storage.datastore.util.SolidFireUtil;
 import org.apache.cloudstack.storage.to.SnapshotObjectTO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import sun.tools.jconsole.ProxyClient;
 
 public class SolidFirePrimaryDataStoreDriver implements PrimaryDataStoreDriver {
     private static final Logger LOGGER = Logger.getLogger(SolidFirePrimaryDataStoreDriver.class);
