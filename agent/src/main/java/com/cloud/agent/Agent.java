@@ -39,6 +39,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.naming.ConfigurationException;
 
+import com.cloud.agent.api.GetHostStatsCommand;
+import com.cloud.agent.api.GetStorageStatsCommand;
+import com.cloud.agent.api.GetVmStatsCommand;
 import org.apache.cloudstack.agent.directdownload.SetupDirectDownloadCertificate;
 import org.apache.cloudstack.agent.lb.SetupMSListAnswer;
 import org.apache.cloudstack.agent.lb.SetupMSListCommand;
@@ -636,6 +639,12 @@ public class Agent implements HandlerFactory, IAgentControl {
                         answer = setupDirectDownloadCertificate((SetupDirectDownloadCertificate) cmd);
                     } else if (cmd instanceof SetupMSListCommand) {
                         answer = setupManagementServerList((SetupMSListCommand) cmd);
+                    } else if (cmd instanceof GetStorageStatsCommand) {
+                        answer = null;
+                    } else if (cmd instanceof GetHostStatsCommand) {
+                        answer = null;
+                    } else if (cmd instanceof GetVmStatsCommand) {
+                        answer = null;
                     } else {
                         if (cmd instanceof ReadyCommand) {
                             processReadyCommand(cmd);
